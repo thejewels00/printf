@@ -1,8 +1,7 @@
 
-/i*#include "libftprintf.h" */
-
+#include "libftprintf.h"
 #include <stdarg.h>
-#include <string.h>
+
 static size_t flags(char a)
 {
 	size_t len_arg;
@@ -17,16 +16,18 @@ static size_t flags(char a)
 		len_arg = 1;
         else if (a == 's') // fin 
                 len_arg = ft_putstr((char *) va_arg(params, char *));
-	else if (a == 'p') //a faire 
+	else if (a == 'p') //fin
                 len_arg = ft_put_adress(va_arg(params, unsigned long));
         else if (a == 'd' || a == 'i') //fin
                 len_arg = ft_putnbr((int) va_arg(params, int));     
-        else if (a == 'u')
+        else if (a == 'u')//a faire 
                 len_arg = ft_putu((unsigned int) va_arg(params, unsigned int));
-        else if (a == 'x')
-                //ft_putstr_ft(//, 1);
-        else if (a == 'X')
-                //ft_putstr_ft(//, 1);
+        else if (a == 'x') // fin
+                len_arg = ft__hexa((unsigned long)va_arg(params, unsigned int),
+				"0123456789abcdef");
+        else if (a == 'X') // fin 
+                len_arg = ft_hexa((unsigned long)va_arg(params, unsigned int),
+				"0123456789ABCDEF");
 	return (len_arg);
 }
 
@@ -42,7 +43,7 @@ int	ft_printf(const char *str, ...)
 	j = 0;
 	k = 0;
 	va_start(params, str);
-	len = strlen(str); //attention a strlen
+	len = ft_strlen(str); 
 	while (i < len && str)
 	{
 		if (s[i] != '%')
@@ -55,5 +56,6 @@ int	ft_printf(const char *str, ...)
 		}			
 	}
 	va_end(params);
+	return (len - (2 * k) + j);
 	// ajouter le return totale :)
 }

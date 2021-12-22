@@ -10,7 +10,7 @@ static size_t flags(char a ,va_list params)
 
         if (a == 'c') //fin 
 	{
-		ft_putchar_fd((char) va_arg(params, char), 1); 
+		ft_putchar_fd(va_arg(params, int), 1); 
 		len_arg = 1;
 	}
         else if (a == '%') // fin

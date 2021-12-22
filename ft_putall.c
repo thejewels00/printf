@@ -41,9 +41,9 @@ size_t ft_putnbr(int nbr)
 
 size_t ft_put_adress(unsigned long ad)
 {
-	size_t i;
+	size_t	i;
 
-	if (n == 0)
+	if (ad == 0)
 		return (ft_putstr("0x0"));
 	i = ft_putstr("0x");
 	i += ft_hexa(ad,"0123456789abcdef");
@@ -67,10 +67,10 @@ size_t ft_hexa(unsigned long nbr , char *base)
 	p = (char *)malloc(i + 1);
 	if (!p)
 		return(0);
-	while (n)
+	while (nbr)
 	{
-		p[--i] = base[n % 16];
-		n /= 16;
+		p[--i] = base[nbr % 16];
+		nbr /= 16;
 	}
 	i = 0;
 	i = ft_putstr(p);
@@ -84,21 +84,16 @@ int ft_putu(unsigned int nb)
 	char	r;
 
 	i = 0;
-	if (nb < 0)
-	{
-		write(1, '-', 1);
-		nb *= -1;	
-	}
 	if (nb >= 10)
 	{
 		i += ft_putu(nb / 10);
 		r = nb % 10 + '0';
-		write(1, r, 1);
+		write(1, &r, 1);
 	}
 	else
 	{
 		r = nb + '0';
-		write(1 ,r ,1);
+		write(1, &r, 1);
 	}
 	i++;
 	return (i);

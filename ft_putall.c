@@ -1,4 +1,5 @@
 #include "ft_printf.h"
+#include "libft/libft.h"
 
 size_t	ft_putstr(char *str)
 {
@@ -63,7 +64,7 @@ size_t ft_hexa(unsigned long nbr , char *base)
 		temp /= 16;
 		i++;
 	}
-	p = (char *)ft_calloc(i + 1, sizeof(char));
+	p = (char *)malloc(i + 1);
 	if (!p)
 		return(0);
 	while (n)
@@ -74,10 +75,34 @@ size_t ft_hexa(unsigned long nbr , char *base)
 	i = 0;
 	i = ft_putstr(p);
 	free(p);
-	return (i)
+	return (i);
 }
+// reviser 
+int ft_putu(unsigned int nb)
+{
+	unsigned int i;
+	char	r;
 
-
+	i = 0;
+	if (nb < 0)
+	{
+		write(1, '-', 1);
+		nb *= -1;	
+	}
+	if (nb >= 10)
+	{
+		i += ft_putu(nb / 10);
+		r = nb % 10 + '0';
+		write(1, r, 1);
+	}
+	else
+	{
+		r = nb + '0';
+		write(1 ,r ,1);
+	}
+	i++;
+	return (i);
+}
 
 
 

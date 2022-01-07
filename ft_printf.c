@@ -23,14 +23,14 @@ static size_t flags(char a ,va_list params)
 	else if (a == 'p') //fin
                 len_arg = ft_put_adress(va_arg(params, unsigned long));
         else if (a == 'd' || a == 'i') //fin
-                len_arg = ft_putnbr((int) va_arg(params, int));     
+                len_arg = ft_putnbr(va_arg(params, int));     
         else if (a == 'u')//a faire 
-                len_arg = ft_putu((unsigned int) va_arg(params, unsigned int));
+                len_arg = ft_putu(va_arg(params, unsigned int));
         else if (a == 'x') // fin 
-                len_arg = ft_hexa((unsigned long)va_arg(params, unsigned long),
+                len_arg = ft_hexa(va_arg(params, long long),
 				"0123456789abcdef");
         else if (a == 'X') // fin 
-                len_arg = ft_hexa((unsigned long)va_arg(params, unsigned long),
+                len_arg = ft_hexa(va_arg(params, long long),
 				"0123456789ABCDEF");
 	return (len_arg);
 }

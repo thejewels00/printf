@@ -1,59 +1,60 @@
 #include "ft_printf.h"
 #include "libft/libft.h"
-
-size_t	ft_putstr(char *str)
+#include <stdio.h>
+int	ft_putchar(char c)
 {
-	size_t i;
+	write (1, &c, 1);
+	return (1);
+}
 
+int	ft_putstr(char *str)
+{
+	int i;
+	if (str == NULL)
+		return (ft_putstr("(null)"));
 	i = ft_strlen(str);
 	if (str)
 		write(1, str, i);
 	return (i);
 }
 
-size_t ft_putnbr(int nbr)
+int	ft_putnbr(int nb)
 {
-	char *str;
-	size_t i;
+	int	i;
 
-	str = ft_itoa(nbr);
-	i = ft_putstr(str);
-	/*if (n == -2147483648)
-                ft_putstr_fd("-2147483648", fd);
-        else
-        {
-                if (n < 0)
-                {
-                        ft_putchar_fd('-', fd);
-                        n *= -1;
-                }
-                if (n <= 9)
-                        ft_putchar_fd(n + '0', fd);
-                else
-                {
-                        ft_putnbr_fd(n / 10, fd);
-                        ft_putnbr_fd(n % 10, fd);
-                        n /= 10;
-                }
-        }*/
+	i = 0;
+	if (nb == -2147483648)
+		return (ft_putstr("-2147483648"));
+	if (nb < 0)
+	{
+		ft_putchar('-');
+		nb *= -1;
+		i++;
+	}
+	if (nb >= 10)
+	{
+		i += ft_putnbr(nb / 10);
+		ft_putchar(nb % 10 + '0');
+	}
+	else
+		ft_putchar(nb + '0');
+	i++;
 	return (i);
 }
 
-size_t ft_put_adress(unsigned long ad)
+int ft_put_adress(unsigned long ad)
 {
-	size_t	i;
+	int	i;
 
 	if (ad == 0)
 		return (ft_putstr("0x0"));
 	i = ft_putstr("0x");
-	i += ft_hexa(ad,"0123456789abcdef");
+	i += ft_hexaa(ad,"0123456789abcdef");
       return (i);	
 }	
-	
-size_t ft_hexa(unsigned long nbr , char *base)
+	int ft_hexaa(unsigned long nbr , char *base)
 {
-	
-	size_t	i;
+	int	i;
 	unsigned long temp;
 	char *p;
 
@@ -67,6 +68,44 @@ size_t ft_hexa(unsigned long nbr , char *base)
 	p = (char *)malloc(i + 1);
 	if (!p)
 		return(0);
+	if (nbr == 0)
+	{
+		free(p);
+		return(write(1,"0",1));
+	}
+	p[i] = '\0';
+	while (nbr)
+	{
+		p[--i] = base[nbr % 16];
+		nbr /= 16;
+	}
+	i = 0;
+	i = ft_putstr(p);
+	free(p);
+	return (i);
+}
+int ft_hexa(unsigned int nbr , char *base)
+{
+	int	i;
+	long long temp;
+	char *p;
+
+	temp = nbr;
+	i = 0;
+	while (temp)
+	{
+		temp /= 16;
+		i++;
+	}
+	p = (char *)malloc(i + 1);
+	if (!p)
+		return(0);
+	if (nbr == 0)
+	{
+		free(p);
+		return(write(1,"0",1));
+	}
+	p[i] = '\0';
 	while (nbr)
 	{
 		p[--i] = base[nbr % 16];
@@ -98,28 +137,3 @@ int ft_putu(unsigned int nb)
 	i++;
 	return (i);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,65 +1,67 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jchennak <jchennak@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/08 15:24:35 by jchennak          #+#    #+#             */
+/*   Updated: 2022/02/08 15:52:49 by jchennak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft/libft.h"
 #include "ft_printf.h"
 #include <stdarg.h>
 
-static size_t flags(char a ,va_list params)
+static int	flags(char a, va_list params)
 {
-	size_t len_arg;
+	int	len_arg;
 
 	len_arg = 0;
-
-        if (a == 'c') //fin 
-	{
-		ft_putchar_fd(va_arg(params, int), 1); 
-		len_arg = 1;
-	}
-        else if (a == '%') // fin
-	{	
-                ft_putchar_fd('%', 1);
-		len_arg = 1;
-	}
-        else if (a == 's') // fin 
-                len_arg = ft_putstr((char *) va_arg(params, char *));
-	else if (a == 'p') //fin
-                len_arg = ft_put_adress(va_arg(params, unsigned long));
-        else if (a == 'd' || a == 'i') //fin
-                len_arg = ft_putnbr(va_arg(params, int));     
-        else if (a == 'u')//a faire 
-                len_arg = ft_putu(va_arg(params, unsigned int));
-        else if (a == 'x') // fin 
-                len_arg = ft_hexa(va_arg(params, long long),
-				"0123456789abcdef");
-        else if (a == 'X') // fin 
-                len_arg = ft_hexa(va_arg(params, long long),
-				"0123456789ABCDEF");
+	if (a == 'c')
+		len_arg = ft_putchar(va_arg(params, int));
+	else if (a == '%')
+		len_arg = ft_putchar('%');
+	else if (a == 's')
+		len_arg = ft_putstr((char *) va_arg(params, char *));
+	else if (a == 'p')
+		len_arg = ft_put_adress(va_arg(params, unsigned long));
+	else if (a == 'd' || a == 'i')
+		len_arg = ft_putnbr(va_arg(params, int));
+	else if (a == 'u')
+		len_arg = ft_putu(va_arg(params, unsigned int));
+	else if (a == 'x')
+		len_arg = ft_hexa(va_arg(params, long long), "0123456789abcdef");
+	else if (a == 'X')
+		len_arg = ft_hexa(va_arg(params, long long), "0123456789ABCDEF");
 	return (len_arg);
 }
 
 int	ft_printf(const char *str, ...)
 {
-	size_t len;
-	size_t i;
-	va_list params;
-	size_t k;
-        size_t j;
+	int		len;
+	int		i;
+	int		k;
+	int		j;
+	va_list	params;
 
 	i = 0;
 	j = 0;
 	k = 0;
 	va_start(params, str);
-	len = ft_strlen(str); 
+	len = ft_strlen(str);
 	while (i < len && str)
 	{
 		if (str[i] != '%')
 			ft_putchar_fd(str[i++], 1);
 		else
 		{
-			j += flags(str[++i],params);
-			k++; //nbr des %flags
+			j += flags(str[++i], params);
+			k++;
 			i++;
-		}			
+		}
 	}
 	va_end(params);
 	return (len - (2 * k) + j);
-	// ajouter le return totale :)
 }

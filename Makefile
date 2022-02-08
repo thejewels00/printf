@@ -4,7 +4,7 @@ AR      = ar -rcs
 
 NAME    = libftprintf.a
 HEAD    = ft_printf.h
-SRCS    = ft_printf.c ft_putall.c
+SRCS    = ft_printf.c ft_putall.c putbase.c
                         
 LIBFT_DIR = libft
 OBJS    = $(SRCS:.c=.o)

@@ -6,12 +6,10 @@
 /*   By: jchennak <jchennak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:08:47 by jchennak          #+#    #+#             */
-/*   Updated: 2022/02/08 17:23:42 by jchennak         ###   ########.fr       */
+/*   Updated: 2022/02/09 13:40:37 by jchennak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include <stdio.h>
 #include "ft_printf.h"
 
 int	ft_hexaa(unsigned long nbr, char *base)
@@ -38,8 +36,9 @@ int	ft_hexaa(unsigned long nbr, char *base)
 		p[--i] = base[nbr % 16];
 		nbr /= 16;
 	}
+	i = ft_putstr(p);
 	free(p);
-	return (ft_putstr(p));
+	return (i);
 }
 
 int	ft_hexa(unsigned int nbr, char *base)
@@ -66,8 +65,9 @@ int	ft_hexa(unsigned int nbr, char *base)
 		p[--i] = base[nbr % 16];
 		nbr /= 16;
 	}
+	i = ft_putstr(p);
 	free(p);
-	return (ft_putstr(p));
+	return (i);
 }
 
 int	ft_putu(unsigned int nb)

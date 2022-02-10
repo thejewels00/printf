@@ -1,33 +1,38 @@
-CC      = cc 
-CFLAGS  = -Wall -Wextra -Werror
-AR      = ar -rcs
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: jchennak <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/02/08 21:01:35 by jchennak          #+#    #+#              #
+#    Updated: 2022/02/08 21:02:04 by jchennak         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-NAME    = libftprintf.a
-HEAD    = ft_printf.h
-SRCS    = ft_printf.c ft_putall.c putbase.c
-                        
-LIBFT_DIR = libft
-OBJS    = $(SRCS:.c=.o)
-LIBFT   = $(LIBFT_DIR)/libft.a
+NAME = libftprintf.a
 
+CC = cc
 
-all: libft_ $(NAME)
+CFLAGS = -Wall -Wextra -Werror
 
-libft_ :
-	make -C libft
+SRCF = ft_printf.c ft_putall.c ft_strlen.c putbase.c
 
-$(NAME): $(OBJS)
-	cp $(LIBFT) $(NAME)
-	$(AR) $(NAME) $^ libft/*.o
+#nommage automatique des fichier .o avec les noms de src file
+all : ${NAME}
+	
+OBJ = ${SRCF:.c=.o}
 
-clean:
-	make clean -C  libft
-	rm -f  $(OBJS)
+# compiler qvec les flag et cree les .o 
 
-fclean: clean
-	make fclean -C libft
-	rm -f $(NAME)
-  
-re: fclean all
-	rm -f $(OBJS)
+${NAME} : ${OBJ}
+	ar -rcs ${NAME} ${OBJ}
+
+clean :
+	rm -rf ${OBJ} 
+
+fclean : clean
+	rm -rf ${NAME}
+
+re : fclean all
 

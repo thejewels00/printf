@@ -6,11 +6,10 @@
 /*   By: jchennak <jchennak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 13:41:10 by jchennak          #+#    #+#             */
-/*   Updated: 2022/02/08 17:24:46 by jchennak         ###   ########.fr       */
+/*   Updated: 2022/02/08 20:39:49 by jchennak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
 #include "ft_printf.h"
 
 int	ft_putchar(char c)

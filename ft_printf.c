@@ -6,11 +6,10 @@
 /*   By: jchennak <jchennak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 15:24:35 by jchennak          #+#    #+#             */
-/*   Updated: 2022/02/08 15:52:49 by jchennak         ###   ########.fr       */
+/*   Updated: 2022/02/08 20:37:18 by jchennak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
 #include "ft_printf.h"
 #include <stdarg.h>
 
@@ -54,7 +53,7 @@ int	ft_printf(const char *str, ...)
 	while (i < len && str)
 	{
 		if (str[i] != '%')
-			ft_putchar_fd(str[i++], 1);
+			ft_putchar(str[i++]);
 		else
 		{
 			j += flags(str[++i], params);
